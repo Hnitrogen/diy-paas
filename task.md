@@ -4,7 +4,7 @@
 暂时关注的是容器+dns同步化
     - 自动化部署到生产 + dns 等配置
     
-
+```
 my_project/
 ├── cmd/
 │   └── my_app/
@@ -20,7 +20,7 @@ my_project/
 │       └── user_service.go
 ├── pkg/                    # 可重用的库
 └── go.mod                  # Go 模块文件
-
+```
 
 
 
