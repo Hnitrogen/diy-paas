@@ -1,6 +1,7 @@
 package main
 
 import (
+	"diy-paas/internal/app/routers"
 	"diy-paas/internal/global"
 	"diy-paas/internal/initialize"
 	"diy-paas/pkg/config"
@@ -29,6 +30,8 @@ func main() {
 	// 初始化表结构
 	global.Mysql = mysql.Init()
 	initialize.InitTables()
+	// 初始化主路由
+	routers.InitRootRouter()
 	// 启动rest-ful server
 	server.InitRestFulServer()
 }

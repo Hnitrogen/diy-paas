@@ -16,8 +16,18 @@ func InitRestFulServer() {
 	global.DefaultContainer.ServeMux = http.DefaultServeMux
 	global.DefaultContainer.Router(restful.CurlyRouter{})
 	// 用global.DefaultContainer 替换 restful.DefaultContainer --- 制造全局路由容器
-
 	routers.RegisterBaseRoutes()
+	// 增加跨域配置
+	//cors := restful.CrossOriginResourceSharing{
+	//	ExposeHeaders:  []string{"X-My-Header"},
+	//	AllowedHeaders: []string{"Content-Type", "Accept"},
+	//	//AllowedDomains: []string{"localhost", "my-domain.com"},
+	//	AllowedMethods: []string{"GET", "POST", "PUT", "DELETE"},
+	//	CookiesAllowed: false,
+	//	Container:      global.DefaultContainer}
+	//global.DefaultContainer.Filter(cors.Filter)
+	//global.DefaultContainer.Filter(global.DefaultContainer.OPTIONSFilter)
+
 	// 打印所有的api
 	allApis := global.DefaultContainer.RegisteredWebServices()
 	fmt.Println("Registered APIs:")
@@ -38,6 +48,6 @@ func InitRestFulServer() {
 	//	SwaggerFilePath: "Users/17914/GolandProjects/diy-paas/swagger-dist"}
 	//swagger.RegisterSwaggerService(config, restful.DefaultContainer)
 
-	log.Println("Starting server on :8080")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	server := &http.Server{Addr: "0.0.0.0:8080", Handler: global.DefaultContainer}
+	log.Fatal(server.ListenAndServe())
 }
